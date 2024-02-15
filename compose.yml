@@ -10,7 +10,6 @@ services:
     restart: unless-stopped
     environment:
       EULA: "TRUE"
-      MOTD: ${MINECRAFT_MOTD}
       SEED: ${MINECRAFT_SEED}
     volumes:
       # attach the relative directory 'data' to the container's /data path
