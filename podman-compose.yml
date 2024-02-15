@@ -1,0 +1,38 @@
+version: "1.0.6"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    restart: unless-stopped
+    environment:
+      EULA: "TRUE"
+      MOTD: ${MINECRAFT_MOTD}
+      SEED: ${MINECRAFT_SEED}
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./data:/data:Z
+
+  ngrok:
+        image: ngrok/ngrok:latest
+        restart: unless-stopped
+        command:
+          - "start"
+          - "--all"
+          - "--config"
+          - "/etc/ngrok.yml"
+        volumes:
+          - ./ngrok.yml:/etc/ngrok.yml:Z
+        ports:
+          - 4040:4040
+          
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+      

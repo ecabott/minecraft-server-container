@@ -1,0 +1,6 @@
+authtoken: 
+version: 2
+tunnels:
+  minecraft:
+    proto: tcp
+    addr: minecraft:25565
