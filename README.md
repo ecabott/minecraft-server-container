@@ -1,1 +1,1 @@
-# container-minecraft-server
+# minecraft-server-container
